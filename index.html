@@ -1,126 +1,90 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Form Appraisal Mobil Bekas - Agung Toyota</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Appraisal Mobil</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 30px; background: #f7f7f7; }
-    .container { background: white; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    img.logo { max-width: 250px; display: block; margin: 0 auto 20px; }
-    h1 { text-align: center; font-size: 22px; color: #b00; }
-    label { display: block; margin: 15px 0 5px; font-weight: bold; }
-    select, input[type="text"], input[type="number"], textarea {
-      width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 20px; padding: 10px 20px; background: #e60000; color: white;
-      border: none; border-radius: 5px; font-size: 16px; cursor: pointer;
-    }
-    button:hover { background: #b30000; }
-    #result { margin-top: 20px; font-weight: bold; font-size: 18px; text-align: center; }
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    label, select, input, button { display: block; margin: 10px 0; width: 100%; }
+    .result { margin-top: 20px; padding: 10px; background: #f3f3f3; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="logo-agung-toyota.png" alt="Agung Toyota Logo" class="logo" />
-    <h1>Form Appraisal Mobil Bekas</h1>
-    <form id="appraisalForm" onsubmit="calculateAppraisal(event)">
-      <label>Merk & Model Kendaraan</label>
-      <input id="model" type="text" placeholder="Contoh: Toyota Avanza 1.3 G A/T" required />
+  <h2>Form Appraisal Mobil Bekas Toyota</h2>
 
-      <label>Tahun Produksi</label>
-      <input id="tahun" type="number" placeholder="Contoh: 2020" required />
+  <label for="model">Pilih Model Mobil:</label>
+  <select id="model">
+    <option value="">-- Pilih Model --</option>
+    <option value="Avanza">Avanza</option>
+    <option value="Rush">Rush</option>
+    <option value="Innova">Innova</option>
+    <option value="Fortuner">Fortuner</option>
+    <option value="Calya">Calya</option>
+    <option value="Agya">Agya</option>
+    <option value="Veloz">Veloz</option>
+    <option value="Yaris">Yaris</option>
+    <option value="Sienta">Sienta</option>
+  </select>
 
-      <label>Kondisi Eksterior</label>
-      <select id="eksterior">
-        <option value="5">5 - Sangat Mulus</option>
-        <option value="4">4 - Mulus</option>
-        <option value="3">3 - Baret Halus</option>
-        <option value="2">2 - Lecet/Karatan</option>
-        <option value="1">1 - Rusak Berat</option>
-      </select>
+  <label for="year">Tahun Kendaraan:</label>
+  <select id="year">
+    <option value="">-- Pilih Tahun --</option>
+    <option value="2018">2018</option>
+    <option value="2019">2019</option>
+    <option value="2020">2020</option>
+    <option value="2021">2021</option>
+    <option value="2022">2022</option>
+  </select>
 
-      <label>Kondisi Interior</label>
-      <select id="interior">
-        <option value="5">5 - Sangat Terawat</option>
-        <option value="4">4 - Terawat</option>
-        <option value="3">3 - Wajar</option>
-        <option value="2">2 - Kotor/Robek</option>
-        <option value="1">1 - Rusak Berat</option>
-      </select>
+  <label for="condition">Kondisi Umum (1 = Buruk, 5 = Sangat Baik):</label>
+  <input type="number" id="condition" min="1" max="5">
 
-      <label>Kondisi Mesin</label>
-      <select id="mesin">
-        <option value="5">5 - Sangat Baik</option>
-        <option value="4">4 - Baik</option>
-        <option value="3">3 - Normal</option>
-        <option value="2">2 - Perlu Servis</option>
-        <option value="1">1 - Rusak Berat</option>
-      </select>
+  <label for="km">Kilometer Kendaraan (dalam ribuan):</label>
+  <input type="number" id="km" min="0">
 
-      <label>KM Saat Ini</label>
-      <input id="km" type="number" placeholder="Contoh: 45000" required />
+  <button onclick="calculateAppraisal()">Hitung Appraisal</button>
 
-      <label>Catatan Tambahan</label>
-      <textarea rows="4" placeholder="Masukkan catatan tambahan jika ada..."></textarea>
-
-      <button type="submit">Hitung Nilai Appraisal</button>
-    </form>
-
-    <div id="result"></div>
-  </div>
+  <div id="result" class="result"></div>
 
   <script>
-  function calculateAppraisal(event) {
-    event.preventDefault();
+    const priceData = {
+      "Avanza": {"2018": 155000000, "2019": 165000000, "2020": 175000000, "2021": 185000000, "2022": 195000000},
+      "Rush": {"2018": 205000000, "2019": 215000000, "2020": 225000000, "2021": 235000000, "2022": 245000000},
+      "Innova": {"2018": 275000000, "2019": 285000000, "2020": 295000000, "2021": 305000000, "2022": 315000000},
+      "Fortuner": {"2018": 405000000, "2019": 415000000, "2020": 425000000, "2021": 435000000, "2022": 445000000},
+      "Calya": {"2018": 125000000, "2019": 130000000, "2020": 135000000, "2021": 140000000, "2022": 145000000},
+      "Agya": {"2018": 115000000, "2019": 120000000, "2020": 125000000, "2021": 130000000, "2022": 135000000},
+      "Veloz": {"2020": 185000000, "2021": 195000000, "2022": 205000000},
+      "Yaris": {"2018": 215000000, "2019": 225000000, "2020": 235000000, "2021": 245000000, "2022": 255000000},
+      "Sienta": {"2018": 195000000, "2019": 205000000, "2020": 215000000, "2021": 225000000, "2022": 235000000},
+    };
 
-    const baseHarga = 200000000; // Harga pasar dasar (simulasi)
-    
-    const tahunInput = document.getElementById("tahun");
-    const kmInput = document.getElementById("km");
-    const eksteriorInput = document.getElementById("eksterior");
-    const interiorInput = document.getElementById("interior");
-    const mesinInput = document.getElementById("mesin");
+    function calculateAppraisal() {
+      const model = document.getElementById('model').value;
+      const year = document.getElementById('year').value;
+      const condition = parseFloat(document.getElementById('condition').value);
+      const km = parseFloat(document.getElementById('km').value);
 
-    // Validasi input
-    if (!tahunInput || !kmInput || !eksteriorInput || !interiorInput || !mesinInput) {
-      alert("Pastikan semua data sudah diisi.");
-      return;
+      const basePrice = priceData[model]?.[year];
+      if (!basePrice) {
+        document.getElementById('result').innerText = 'Harga dasar tidak ditemukan.';
+        return;
+      }
+
+      // Faktor koreksi
+      const conditionFactor = condition / 5; // dari 0.2 - 1.0
+      const kmFactor = km > 100 ? 0.85 : (km > 50 ? 0.95 : 1.0); // penalti berdasarkan jarak tempuh
+
+      const finalPrice = Math.round(basePrice * conditionFactor * kmFactor);
+
+      document.getElementById('result').innerHTML = `
+        <strong>Harga Pasar:</strong> Rp ${basePrice.toLocaleString('id-ID')}<br>
+        <strong>Skor Kondisi:</strong> ${condition}<br>
+        <strong>KM:</strong> ${km} ribu km<br>
+        <strong>Appraisal:</strong> <b>Rp ${finalPrice.toLocaleString('id-ID')}</b>
+      `;
     }
-
-    const tahun = parseInt(tahunInput.value);
-    const km = parseInt(kmInput.value);
-    const skorEksterior = parseInt(eksteriorInput.value);
-    const skorInterior = parseInt(interiorInput.value);
-    const skorMesin = parseInt(mesinInput.value);
-
-    if (isNaN(tahun) || isNaN(km)) {
-      alert("Tahun dan KM harus berupa angka.");
-      return;
-    }
-
-    const totalSkor = skorEksterior + skorInterior + skorMesin;
-    const maxSkor = 15;
-    const skorPersen = totalSkor / maxSkor;
-
-    const tahunSekarang = new Date().getFullYear();
-    const depresiasi = Math.max(0.5, 1 - ((tahunSekarang - tahun) * 0.05));
-
-    let kmPenalti = 1;
-    if (km > 150000) kmPenalti = 0.7;
-    else if (km > 100000) kmPenalti = 0.8;
-    else if (km > 50000) kmPenalti = 0.9;
-
-    const appraisal = baseHarga * skorPersen * depresiasi * kmPenalti;
-    const formatted = appraisal.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
-
-    const resultDiv = document.getElementById("result");
-    if (resultDiv) {
-      resultDiv.innerText = "Perkiraan Nilai Appraisal: " + formatted;
-    } else {
-      alert("Elemen hasil tidak ditemukan.");
-    }
-  }
-</script>
- 
+  </script>
+</body>
+</html>
