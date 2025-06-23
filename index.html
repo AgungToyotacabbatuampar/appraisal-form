@@ -106,8 +106,15 @@
       <option value="2022">2022</option>
     </select>
 
-    <label for="condition">Kondisi Umum (1 = Buruk, 5 = Sangat Baik):</label>
-    <input type="number" id="condition" min="1" max="5">
+    <label for="condition">Kondisi Umum:</label>
+    <select id="condition">
+      <option value="">-- Pilih Kondisi --</option>
+      <option value="1">Buruk</option>
+      <option value="2">Cukup</option>
+      <option value="3">Baik</option>
+      <option value="4">Sangat Baik</option>
+      <option value="5">Istimewa</option>
+    </select>
 
     <label for="km">Kilometer Kendaraan (ribu km):</label>
     <input type="number" id="km" min="0">
@@ -155,7 +162,7 @@
       document.getElementById('result').innerHTML = `
         <strong>Harga Pasar:</strong> Rp ${basePrice.toLocaleString('id-ID')}<br>
         <strong>Model:</strong> ${model} ${type} (${transmission})<br>
-        <strong>Skor Kondisi:</strong> ${condition}<br>
+        <strong>Kondisi Umum:</strong> ${document.getElementById('condition').options[document.getElementById('condition').selectedIndex].text}<br>
         <strong>KM:</strong> ${km} ribu km<br>
         <strong>Appraisal:</strong> <b>Rp ${finalPrice.toLocaleString('id-ID')}</b>
       `;
