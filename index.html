@@ -163,5 +163,55 @@
 
     <div id="result" class="result"></div>
   </div>
+
+  <script>
+    const basePrices = {
+      "Avanza": 180,
+      "Rush": 220,
+      "Innova": 300,
+      "Fortuner": 420,
+      "Calya": 140,
+      "Agya": 130,
+      "Veloz": 200,
+      "Yaris": 260,
+      "Sienta": 240
+    };
+
+    function calculateAppraisal() {
+      const model = document.getElementById('model').value;
+      const year = parseInt(document.getElementById('year').value);
+      const km = parseFloat(document.getElementById('km').value);
+      const eksterior = parseInt(document.getElementById('eksterior').value);
+      const interior = parseInt(document.getElementById('interior').value);
+      const mesin = parseInt(document.getElementById('mesin').value);
+      const ban = parseInt(document.getElementById('ban').value);
+      const kaki = parseInt(document.getElementById('kaki').value);
+      const type = document.getElementById('type').value;
+      const transmission = document.getElementById('transmission').value;
+
+      if (!model || !year || isNaN(km) || !eksterior || !interior || !mesin || !ban || !kaki || !type || !transmission) {
+        alert("Mohon lengkapi semua kolom!");
+        return;
+      }
+
+      let price = basePrices[model] || 200;
+      const currentYear = new Date().getFullYear();
+      const age = currentYear - year;
+
+      price -= age * 10; // depresiasi usia (10 juta per tahun)
+      price -= km * 0.5; // depresiasi km (500rb per 1.000 km)
+
+      const conditionScore = (eksterior + interior + mesin + ban + kaki) / 5;
+      price *= (0.7 + (conditionScore / 10)); // pengaruh kondisi
+
+      // Tambahan nilai berdasarkan tipe dan transmisi
+      if (type === "GR" || type === "TRD") price += 10;
+      if (transmission === "AT" || transmission === "CVT") price += 5;
+
+      if (price < 0) price = 0;
+
+      document.getElementById('result').innerHTML = `<h3>Perkiraan Harga Appraisal:</h3><p>Rp ${Math.round(price)} juta</p>`;
+    }
+  </script>
 </body>
 </html>
