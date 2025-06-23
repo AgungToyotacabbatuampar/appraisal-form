@@ -106,9 +106,29 @@
       <option value="2022">2022</option>
     </select>
 
-    <label for="condition">Kondisi Umum:</label>
-    <select id="condition">
-      <option value="">-- Pilih Kondisi --</option>
+    <label for="eksterior">Kondisi Eksterior:</label>
+    <select id="eksterior">
+      <option value="">-- Pilih --</option>
+      <option value="1">Buruk</option>
+      <option value="2">Cukup</option>
+      <option value="3">Baik</option>
+      <option value="4">Sangat Baik</option>
+      <option value="5">Istimewa</option>
+    </select>
+
+    <label for="interior">Kondisi Interior:</label>
+    <select id="interior">
+      <option value="">-- Pilih --</option>
+      <option value="1">Buruk</option>
+      <option value="2">Cukup</option>
+      <option value="3">Baik</option>
+      <option value="4">Sangat Baik</option>
+      <option value="5">Istimewa</option>
+    </select>
+
+    <label for="mesin">Kondisi Mesin:</label>
+    <select id="mesin">
+      <option value="">-- Pilih --</option>
       <option value="1">Buruk</option>
       <option value="2">Cukup</option>
       <option value="3">Baik</option>
@@ -142,7 +162,9 @@
       const year = document.getElementById('year').value;
       const type = document.getElementById('type').value;
       const transmission = document.getElementById('transmission').value;
-      const condition = parseFloat(document.getElementById('condition').value);
+      const eksterior = parseFloat(document.getElementById('eksterior').value);
+      const interior = parseFloat(document.getElementById('interior').value);
+      const mesin = parseFloat(document.getElementById('mesin').value);
       const km = parseFloat(document.getElementById('km').value);
 
       const basePrice = priceData[model]?.[year];
@@ -151,8 +173,8 @@
         return;
       }
 
-      // Faktor koreksi
-      const conditionFactor = condition / 5; // dari 0.2 - 1.0
+      const averageCondition = (eksterior + interior + mesin) / 3;
+      const conditionFactor = averageCondition / 5;
       const kmFactor = km > 100 ? 0.85 : (km > 50 ? 0.95 : 1.0);
       const typeFactor = (type === 'Q' || type === 'GR') ? 1.05 : (type === 'G' ? 1.00 : 0.95);
       const transFactor = (transmission === 'AT' || transmission === 'CVT') ? 1.03 : 1.00;
@@ -162,7 +184,9 @@
       document.getElementById('result').innerHTML = `
         <strong>Harga Pasar:</strong> Rp ${basePrice.toLocaleString('id-ID')}<br>
         <strong>Model:</strong> ${model} ${type} (${transmission})<br>
-        <strong>Kondisi Umum:</strong> ${document.getElementById('condition').options[document.getElementById('condition').selectedIndex].text}<br>
+        <strong>Kondisi Eksterior:</strong> ${eksterior}<br>
+        <strong>Kondisi Interior:</strong> ${interior}<br>
+        <strong>Kondisi Mesin:</strong> ${mesin}<br>
         <strong>KM:</strong> ${km} ribu km<br>
         <strong>Appraisal:</strong> <b>Rp ${finalPrice.toLocaleString('id-ID')}</b>
       `;
