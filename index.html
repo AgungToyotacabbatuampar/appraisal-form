@@ -136,6 +136,26 @@
       <option value="5">Istimewa</option>
     </select>
 
+    <label for="ban">Kondisi Ban:</label>
+    <select id="ban">
+      <option value="">-- Pilih --</option>
+      <option value="1">Buruk</option>
+      <option value="2">Cukup</option>
+      <option value="3">Baik</option>
+      <option value="4">Sangat Baik</option>
+      <option value="5">Istimewa</option>
+    </select>
+
+    <label for="kaki">Kondisi Kaki-Kaki:</label>
+    <select id="kaki">
+      <option value="">-- Pilih --</option>
+      <option value="1">Buruk</option>
+      <option value="2">Cukup</option>
+      <option value="3">Baik</option>
+      <option value="4">Sangat Baik</option>
+      <option value="5">Istimewa</option>
+    </select>
+
     <label for="km">Kilometer Kendaraan (ribu km):</label>
     <input type="number" id="km" min="0">
 
@@ -143,54 +163,5 @@
 
     <div id="result" class="result"></div>
   </div>
-
-  <script>
-    const priceData = {
-      "Avanza": {"2018": 155000000, "2019": 165000000, "2020": 175000000, "2021": 185000000, "2022": 195000000},
-      "Rush": {"2018": 205000000, "2019": 215000000, "2020": 225000000, "2021": 235000000, "2022": 245000000},
-      "Innova": {"2018": 275000000, "2019": 285000000, "2020": 295000000, "2021": 305000000, "2022": 315000000},
-      "Fortuner": {"2018": 405000000, "2019": 415000000, "2020": 425000000, "2021": 435000000, "2022": 445000000},
-      "Calya": {"2018": 125000000, "2019": 130000000, "2020": 135000000, "2021": 140000000, "2022": 145000000},
-      "Agya": {"2018": 115000000, "2019": 120000000, "2020": 125000000, "2021": 130000000, "2022": 135000000},
-      "Veloz": {"2020": 185000000, "2021": 195000000, "2022": 205000000},
-      "Yaris": {"2018": 215000000, "2019": 225000000, "2020": 235000000, "2021": 245000000, "2022": 255000000},
-      "Sienta": {"2018": 195000000, "2019": 205000000, "2020": 215000000, "2021": 225000000, "2022": 235000000},
-    };
-
-    function calculateAppraisal() {
-      const model = document.getElementById('model').value;
-      const year = document.getElementById('year').value;
-      const type = document.getElementById('type').value;
-      const transmission = document.getElementById('transmission').value;
-      const eksterior = parseFloat(document.getElementById('eksterior').value);
-      const interior = parseFloat(document.getElementById('interior').value);
-      const mesin = parseFloat(document.getElementById('mesin').value);
-      const km = parseFloat(document.getElementById('km').value);
-
-      const basePrice = priceData[model]?.[year];
-      if (!basePrice) {
-        document.getElementById('result').innerText = 'Harga dasar tidak ditemukan.';
-        return;
-      }
-
-      const averageCondition = (eksterior + interior + mesin) / 3;
-      const conditionFactor = averageCondition / 5;
-      const kmFactor = km > 100 ? 0.85 : (km > 50 ? 0.95 : 1.0);
-      const typeFactor = (type === 'Q' || type === 'GR') ? 1.05 : (type === 'G' ? 1.00 : 0.95);
-      const transFactor = (transmission === 'AT' || transmission === 'CVT') ? 1.03 : 1.00;
-
-      const finalPrice = Math.round(basePrice * conditionFactor * kmFactor * typeFactor * transFactor);
-
-      document.getElementById('result').innerHTML = `
-        <strong>Harga Pasar:</strong> Rp ${basePrice.toLocaleString('id-ID')}<br>
-        <strong>Model:</strong> ${model} ${type} (${transmission})<br>
-        <strong>Kondisi Eksterior:</strong> ${eksterior}<br>
-        <strong>Kondisi Interior:</strong> ${interior}<br>
-        <strong>Kondisi Mesin:</strong> ${mesin}<br>
-        <strong>KM:</strong> ${km} ribu km<br>
-        <strong>Appraisal:</strong> <b>Rp ${finalPrice.toLocaleString('id-ID')}</b>
-      `;
-    }
-  </script>
 </body>
 </html>
