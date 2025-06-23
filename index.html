@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Appraisal Mobil Bekas - Agung Toyota</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; background: #f7f7f7; }
+        .container { background: white; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        img.logo { max-width: 250px; display: block; margin: 0 auto 20px; }
+        h1 { text-align: center; font-size: 22px; color: #b00; }
+        label { display: block; margin: 15px 0 5px; font-weight: bold; }
+        select, input[type="text"], textarea { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+        button { margin-top: 20px; padding: 10px 20px; background: #e60000; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #b30000; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="logo-agung-toyota.png" alt="Agung Toyota Logo" class="logo">
+        <h1>Form Appraisal Mobil Bekas</h1>
+        <form>
+            <label>Merk & Model Kendaraan</label>
+            <input type="text" placeholder="Contoh: Toyota Avanza 1.3 G A/T">
+
+            <label>Tahun Produksi</label>
+            <input type="text" placeholder="Contoh: 2020">
+
+            <label>Kondisi Eksterior</label>
+            <select>
+                <option value="5">5 - Sangat Mulus</option>
+                <option value="4">4 - Mulus</option>
+                <option value="3">3 - Baret Halus</option>
+                <option value="2">2 - Lecet/Karatan</option>
+                <option value="1">1 - Rusak Berat</option>
+            </select>
+
+            <label>Kondisi Interior</label>
+            <select>
+                <option value="5">5 - Sangat Terawat</option>
+                <option value="4">4 - Terawat</option>
+                <option value="3">3 - Wajar</option>
+                <option value="2">2 - Kotor/Robek</option>
+                <option value="1">1 - Rusak Berat</option>
+            </select>
+
+            <label>Kondisi Mesin</label>
+            <select>
+                <option value="5">5 - Sangat Baik</option>
+                <option value="4">4 - Baik</option>
+                <option value="3">3 - Normal</option>
+                <option value="2">2 - Perlu Servis</option>
+                <option value="1">1 - Rusak Berat</option>
+            </select>
+
+            <label>KM Saat Ini</label>
+            <input type="text" placeholder="Contoh: 45.000 KM">
+
+            <label>Catatan Tambahan</label>
+            <textarea rows="4" placeholder="Masukkan catatan tambahan jika ada..."></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
