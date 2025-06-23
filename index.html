@@ -72,34 +72,55 @@
   </div>
 
   <script>
-    function calculateAppraisal(event) {
-      event.preventDefault();
-      const baseHarga = 200000000; // Simulasi harga pasar dasar Rp 200 juta
-      const tahun = parseInt(document.getElementById("tahun").value);
-      const km = parseInt(document.getElementById("km").value);
-      const skorEksterior = parseInt(document.getElementById("eksterior").value);
-      const skorInterior = parseInt(document.getElementById("interior").value);
-      const skorMesin = parseInt(document.getElementById("mesin").value);
+  function calculateAppraisal(event) {
+    event.preventDefault();
 
-      const totalSkor = skorEksterior + skorInterior + skorMesin;
-      const maxSkor = 15;
-      const skorPersen = totalSkor / maxSkor;
+    const baseHarga = 200000000; // Harga pasar dasar (simulasi)
+    
+    const tahunInput = document.getElementById("tahun");
+    const kmInput = document.getElementById("km");
+    const eksteriorInput = document.getElementById("eksterior");
+    const interiorInput = document.getElementById("interior");
+    const mesinInput = document.getElementById("mesin");
 
-      // Penyesuaian tahun produksi (penyusutan 5% per tahun)
-      const tahunSekarang = new Date().getFullYear();
-      const depresiasi = Math.max(0.5, 1 - ((tahunSekarang - tahun) * 0.05));
-
-      // Penyesuaian kilometer
-      let kmPenalti = 1;
-      if (km > 150000) kmPenalti = 0.7;
-      else if (km > 100000) kmPenalti = 0.8;
-      else if (km > 50000) kmPenalti = 0.9;
-
-      const appraisal = baseHarga * skorPersen * depresiasi * kmPenalti;
-      const formatted = appraisal.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
-
-      document.getElementById("result").innerText = "Perkiraan Nilai Appraisal: " + formatted;
+    // Validasi input
+    if (!tahunInput || !kmInput || !eksteriorInput || !interiorInput || !mesinInput) {
+      alert("Pastikan semua data sudah diisi.");
+      return;
     }
-  </script>
-</body>
-</html>
+
+    const tahun = parseInt(tahunInput.value);
+    const km = parseInt(kmInput.value);
+    const skorEksterior = parseInt(eksteriorInput.value);
+    const skorInterior = parseInt(interiorInput.value);
+    const skorMesin = parseInt(mesinInput.value);
+
+    if (isNaN(tahun) || isNaN(km)) {
+      alert("Tahun dan KM harus berupa angka.");
+      return;
+    }
+
+    const totalSkor = skorEksterior + skorInterior + skorMesin;
+    const maxSkor = 15;
+    const skorPersen = totalSkor / maxSkor;
+
+    const tahunSekarang = new Date().getFullYear();
+    const depresiasi = Math.max(0.5, 1 - ((tahunSekarang - tahun) * 0.05));
+
+    let kmPenalti = 1;
+    if (km > 150000) kmPenalti = 0.7;
+    else if (km > 100000) kmPenalti = 0.8;
+    else if (km > 50000) kmPenalti = 0.9;
+
+    const appraisal = baseHarga * skorPersen * depresiasi * kmPenalti;
+    const formatted = appraisal.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
+
+    const resultDiv = document.getElementById("result");
+    if (resultDiv) {
+      resultDiv.innerText = "Perkiraan Nilai Appraisal: " + formatted;
+    } else {
+      alert("Elemen hasil tidak ditemukan.");
+    }
+  }
+</script>
+ 
