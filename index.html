@@ -1,67 +1,105 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Appraisal Mobil Bekas - Agung Toyota</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 30px; background: #f7f7f7; }
-        .container { background: white; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        img.logo { max-width: 250px; display: block; margin: 0 auto 20px; }
-        h1 { text-align: center; font-size: 22px; color: #b00; }
-        label { display: block; margin: 15px 0 5px; font-weight: bold; }
-        select, input[type="text"], textarea { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
-        button { margin-top: 20px; padding: 10px 20px; background: #e60000; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
-        button:hover { background: #b30000; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Appraisal Mobil Bekas - Agung Toyota</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; background: #f7f7f7; }
+    .container { background: white; padding: 20px; border-radius: 10px; max-width: 700px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    img.logo { max-width: 250px; display: block; margin: 0 auto 20px; }
+    h1 { text-align: center; font-size: 22px; color: #b00; }
+    label { display: block; margin: 15px 0 5px; font-weight: bold; }
+    select, input[type="text"], input[type="number"], textarea {
+      width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px; padding: 10px 20px; background: #e60000; color: white;
+      border: none; border-radius: 5px; font-size: 16px; cursor: pointer;
+    }
+    button:hover { background: #b30000; }
+    #result { margin-top: 20px; font-weight: bold; font-size: 18px; text-align: center; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="logo-agung-toyota.png" alt="Agung Toyota Logo" class="logo">
-        <h1>Form Appraisal Mobil Bekas</h1>
-        <form>
-            <label>Merk & Model Kendaraan</label>
-            <input type="text" placeholder="Contoh: Toyota Avanza 1.3 G A/T">
+  <div class="container">
+    <img src="logo-agung-toyota.png" alt="Agung Toyota Logo" class="logo" />
+    <h1>Form Appraisal Mobil Bekas</h1>
+    <form id="appraisalForm" onsubmit="calculateAppraisal(event)">
+      <label>Merk & Model Kendaraan</label>
+      <input id="model" type="text" placeholder="Contoh: Toyota Avanza 1.3 G A/T" required />
 
-            <label>Tahun Produksi</label>
-            <input type="text" placeholder="Contoh: 2020">
+      <label>Tahun Produksi</label>
+      <input id="tahun" type="number" placeholder="Contoh: 2020" required />
 
-            <label>Kondisi Eksterior</label>
-            <select>
-                <option value="5">5 - Sangat Mulus</option>
-                <option value="4">4 - Mulus</option>
-                <option value="3">3 - Baret Halus</option>
-                <option value="2">2 - Lecet/Karatan</option>
-                <option value="1">1 - Rusak Berat</option>
-            </select>
+      <label>Kondisi Eksterior</label>
+      <select id="eksterior">
+        <option value="5">5 - Sangat Mulus</option>
+        <option value="4">4 - Mulus</option>
+        <option value="3">3 - Baret Halus</option>
+        <option value="2">2 - Lecet/Karatan</option>
+        <option value="1">1 - Rusak Berat</option>
+      </select>
 
-            <label>Kondisi Interior</label>
-            <select>
-                <option value="5">5 - Sangat Terawat</option>
-                <option value="4">4 - Terawat</option>
-                <option value="3">3 - Wajar</option>
-                <option value="2">2 - Kotor/Robek</option>
-                <option value="1">1 - Rusak Berat</option>
-            </select>
+      <label>Kondisi Interior</label>
+      <select id="interior">
+        <option value="5">5 - Sangat Terawat</option>
+        <option value="4">4 - Terawat</option>
+        <option value="3">3 - Wajar</option>
+        <option value="2">2 - Kotor/Robek</option>
+        <option value="1">1 - Rusak Berat</option>
+      </select>
 
-            <label>Kondisi Mesin</label>
-            <select>
-                <option value="5">5 - Sangat Baik</option>
-                <option value="4">4 - Baik</option>
-                <option value="3">3 - Normal</option>
-                <option value="2">2 - Perlu Servis</option>
-                <option value="1">1 - Rusak Berat</option>
-            </select>
+      <label>Kondisi Mesin</label>
+      <select id="mesin">
+        <option value="5">5 - Sangat Baik</option>
+        <option value="4">4 - Baik</option>
+        <option value="3">3 - Normal</option>
+        <option value="2">2 - Perlu Servis</option>
+        <option value="1">1 - Rusak Berat</option>
+      </select>
 
-            <label>KM Saat Ini</label>
-            <input type="text" placeholder="Contoh: 45.000 KM">
+      <label>KM Saat Ini</label>
+      <input id="km" type="number" placeholder="Contoh: 45000" required />
 
-            <label>Catatan Tambahan</label>
-            <textarea rows="4" placeholder="Masukkan catatan tambahan jika ada..."></textarea>
+      <label>Catatan Tambahan</label>
+      <textarea rows="4" placeholder="Masukkan catatan tambahan jika ada..."></textarea>
 
-            <button type="submit">Submit</button>
-        </form>
-    </div>
+      <button type="submit">Hitung Nilai Appraisal</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateAppraisal(event) {
+      event.preventDefault();
+      const baseHarga = 200000000; // Simulasi harga pasar dasar Rp 200 juta
+      const tahun = parseInt(document.getElementById("tahun").value);
+      const km = parseInt(document.getElementById("km").value);
+      const skorEksterior = parseInt(document.getElementById("eksterior").value);
+      const skorInterior = parseInt(document.getElementById("interior").value);
+      const skorMesin = parseInt(document.getElementById("mesin").value);
+
+      const totalSkor = skorEksterior + skorInterior + skorMesin;
+      const maxSkor = 15;
+      const skorPersen = totalSkor / maxSkor;
+
+      // Penyesuaian tahun produksi (penyusutan 5% per tahun)
+      const tahunSekarang = new Date().getFullYear();
+      const depresiasi = Math.max(0.5, 1 - ((tahunSekarang - tahun) * 0.05));
+
+      // Penyesuaian kilometer
+      let kmPenalti = 1;
+      if (km > 150000) kmPenalti = 0.7;
+      else if (km > 100000) kmPenalti = 0.8;
+      else if (km > 50000) kmPenalti = 0.9;
+
+      const appraisal = baseHarga * skorPersen * depresiasi * kmPenalti;
+      const formatted = appraisal.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
+
+      document.getElementById("result").innerText = "Perkiraan Nilai Appraisal: " + formatted;
+    }
+  </script>
 </body>
 </html>
