@@ -27,6 +27,25 @@
     <option value="Sienta">Sienta</option>
   </select>
 
+  <label for="type">Tipe Mobil:</label>
+  <select id="type">
+    <option value="">-- Pilih Tipe --</option>
+    <option value="G">G</option>
+    <option value="E">E</option>
+    <option value="V">V</option>
+    <option value="Q">Q</option>
+    <option value="TRD">TRD</option>
+    <option value="GR">GR</option>
+  </select>
+
+  <label for="transmission">Transmisi:</label>
+  <select id="transmission">
+    <option value="">-- Pilih Transmisi --</option>
+    <option value="MT">Manual (MT)</option>
+    <option value="AT">Automatic (AT)</option>
+    <option value="CVT">CVT</option>
+  </select>
+
   <label for="year">Tahun Kendaraan:</label>
   <select id="year">
     <option value="">-- Pilih Tahun --</option>
@@ -63,6 +82,8 @@
     function calculateAppraisal() {
       const model = document.getElementById('model').value;
       const year = document.getElementById('year').value;
+      const type = document.getElementById('type').value;
+      const transmission = document.getElementById('transmission').value;
       const condition = parseFloat(document.getElementById('condition').value);
       const km = parseFloat(document.getElementById('km').value);
 
@@ -74,12 +95,15 @@
 
       // Faktor koreksi
       const conditionFactor = condition / 5; // dari 0.2 - 1.0
-      const kmFactor = km > 100 ? 0.85 : (km > 50 ? 0.95 : 1.0); // penalti berdasarkan jarak tempuh
+      const kmFactor = km > 100 ? 0.85 : (km > 50 ? 0.95 : 1.0);
+      const typeFactor = (type === 'Q' || type === 'GR') ? 1.05 : (type === 'G' ? 1.00 : 0.95);
+      const transFactor = (transmission === 'AT' || transmission === 'CVT') ? 1.03 : 1.00;
 
-      const finalPrice = Math.round(basePrice * conditionFactor * kmFactor);
+      const finalPrice = Math.round(basePrice * conditionFactor * kmFactor * typeFactor * transFactor);
 
       document.getElementById('result').innerHTML = `
         <strong>Harga Pasar:</strong> Rp ${basePrice.toLocaleString('id-ID')}<br>
+        <strong>Model:</strong> ${model} ${type} (${transmission})<br>
         <strong>Skor Kondisi:</strong> ${condition}<br>
         <strong>KM:</strong> ${km} ribu km<br>
         <strong>Appraisal:</strong> <b>Rp ${finalPrice.toLocaleString('id-ID')}</b>
