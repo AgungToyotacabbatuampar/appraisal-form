@@ -1,217 +1,221 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Appraisal Mobil</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Appraisal Kendaraan - Agung Toyota</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background: #f5f5f5;
+      margin: 0;
       padding: 20px;
     }
     .container {
-      max-width: 700px;
+      background: #fff;
+      max-width: 800px;
       margin: auto;
-      background: white;
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h2 {
+    h1 {
       text-align: center;
-      margin-bottom: 20px;
+      color: #d91f2a;
+    }
+    img.logo {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-width: 180px;
     }
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
-    select, input {
+    select, input[type="number"] {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       margin-top: 5px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
     button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      background-color: #d51920;
+      background: #d91f2a;
       color: white;
       border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
       border-radius: 5px;
-      font-size: 16px;
       cursor: pointer;
+      width: 100%;
+      font-size: 16px;
     }
     .result {
-      margin-top: 30px;
-      background-color: #eaeaea;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    img.logo {
-      width: 180px;
-      display: block;
-      margin: 0 auto 20px;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      color: #333;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="logo-agung-toyota.png" alt="Logo Agung Toyota" class="logo">
-    <h2>Form Appraisal Mobil Bekas Toyota</h2>
+    <img src="logo-agung-toyota.png" alt="Logo Agung Toyota" class="logo" />
+    <h1>Form Appraisal Kendaraan</h1>
+    <form id="appraisalForm">
+      <label for="model">Model Mobil</label>
+      <select id="model" required>
+        <option value="">-- Pilih Model --</option>
+        <option value="Avanza">Avanza</option>
+        <option value="Rush">Rush</option>
+        <option value="Innova">Innova</option>
+        <option value="Agya">Agya</option>
+        <option value="Raize">Raize</option>
+      </select>
 
-    <label for="model">Pilih Model Mobil:</label>
-    <select id="model">
-      <option value="">-- Pilih Model --</option>
-      <option value="Avanza">Avanza</option>
-      <option value="Rush">Rush</option>
-      <option value="Innova">Innova</option>
-      <option value="Fortuner">Fortuner</option>
-      <option value="Calya">Calya</option>
-      <option value="Agya">Agya</option>
-      <option value="Veloz">Veloz</option>
-      <option value="Yaris">Yaris</option>
-      <option value="Sienta">Sienta</option>
-    </select>
+      <label for="type">Tipe Mobil</label>
+      <select id="type" required>
+        <option value="">-- Pilih Tipe --</option>
+        <option value="G">G</option>
+        <option value="E">E</option>
+        <option value="V">V</option>
+        <option value="GR">GR</option>
+        <option value="Q">Q</option>
+      </select>
 
-    <label for="type">Tipe Mobil:</label>
-    <select id="type">
-      <option value="">-- Pilih Tipe --</option>
-      <option value="G">G</option>
-      <option value="E">E</option>
-      <option value="V">V</option>
-      <option value="Q">Q</option>
-      <option value="TRD">TRD</option>
-      <option value="GR">GR</option>
-    </select>
+      <label for="transmission">Transmisi</label>
+      <select id="transmission" required>
+        <option value="">-- Pilih Transmisi --</option>
+        <option value="AT">AT</option>
+        <option value="MT">MT</option>
+      </select>
 
-    <label for="transmission">Transmisi:</label>
-    <select id="transmission">
-      <option value="">-- Pilih Transmisi --</option>
-      <option value="MT">Manual (MT)</option>
-      <option value="AT">Automatic (AT)</option>
-      <option value="CVT">CVT</option>
-    </select>
+      <label for="year">Tahun Kendaraan</label>
+      <select id="year" required>
+        <option value="">-- Pilih Tahun --</option>
+      </select>
 
-    <label for="year">Tahun Kendaraan:</label>
-    <select id="year">
-      <option value="">-- Pilih Tahun --</option>
-      <option value="2018">2018</option>
-      <option value="2019">2019</option>
-      <option value="2020">2020</option>
-      <option value="2021">2021</option>
-      <option value="2022">2022</option>
-    </select>
+      <label for="km">Jarak Tempuh (KM)</label>
+      <input type="number" id="km" placeholder="Contoh: 50000" required />
 
-    <label for="eksterior">Kondisi Eksterior:</label>
-    <select id="eksterior">
-      <option value="">-- Pilih --</option>
-      <option value="1">Buruk</option>
-      <option value="2">Cukup</option>
-      <option value="3">Baik</option>
-      <option value="4">Sangat Baik</option>
-      <option value="5">Istimewa</option>
-    </select>
+      <label for="eksterior">Kondisi Eksterior</label>
+      <select id="eksterior" required>
+        <option value="">-- Pilih Kondisi --</option>
+        <option value="5">Sangat Baik - Bebas penyok/cat mulus</option>
+        <option value="4">Baik - Ada baret ringan</option>
+        <option value="3">Cukup - Lecet dan cat kusam</option>
+        <option value="2">Kurang - Banyak baret besar/penyok</option>
+        <option value="1">Buruk - Perlu perbaikan besar</option>
+      </select>
 
-    <label for="interior">Kondisi Interior:</label>
-    <select id="interior">
-      <option value="">-- Pilih --</option>
-      <option value="1">Buruk</option>
-      <option value="2">Cukup</option>
-      <option value="3">Baik</option>
-      <option value="4">Sangat Baik</option>
-      <option value="5">Istimewa</option>
-    </select>
+      <label for="interior">Kondisi Interior</label>
+      <select id="interior" required>
+        <option value="">-- Pilih Kondisi --</option>
+        <option value="5">Sangat Baik - Bersih dan terawat</option>
+        <option value="4">Baik - Minor kotor/baret</option>
+        <option value="3">Cukup - Ada sobekan/kerusakan kecil</option>
+        <option value="2">Kurang - Kotor parah</option>
+        <option value="1">Buruk - Banyak kerusakan interior</option>
+      </select>
 
-    <label for="mesin">Kondisi Mesin:</label>
-    <select id="mesin">
-      <option value="">-- Pilih --</option>
-      <option value="1">Buruk</option>
-      <option value="2">Cukup</option>
-      <option value="3">Baik</option>
-      <option value="4">Sangat Baik</option>
-      <option value="5">Istimewa</option>
-    </select>
+      <label for="mesin">Kondisi Mesin</label>
+      <select id="mesin" required>
+        <option value="">-- Pilih Kondisi --</option>
+        <option value="5">Sangat Baik - Mesin halus & responsif</option>
+        <option value="4">Baik - Normal tanpa keluhan</option>
+        <option value="3">Cukup - Ada suara kasar ringan</option>
+        <option value="2">Kurang - Mesin kasar/kurang bertenaga</option>
+        <option value="1">Buruk - Butuh perbaikan mesin</option>
+      </select>
 
-    <label for="ban">Kondisi Ban:</label>
-    <select id="ban">
-      <option value="">-- Pilih --</option>
-      <option value="1">Buruk</option>
-      <option value="2">Cukup</option>
-      <option value="3">Baik</option>
-      <option value="4">Sangat Baik</option>
-      <option value="5">Istimewa</option>
-    </select>
+      <label for="ban">Kondisi Ban</label>
+      <select id="ban" required>
+        <option value="">-- Pilih Kondisi --</option>
+        <option value="5">Sangat Baik - Semua ban baru</option>
+        <option value="4">Baik - Tapak masih tebal</option>
+        <option value="3">Cukup - Ban mulai tipis</option>
+        <option value="2">Kurang - Perlu ganti 1-2 ban</option>
+        <option value="1">Buruk - Semua ban aus</option>
+      </select>
 
-    <label for="kaki">Kondisi Kaki-Kaki:</label>
-    <select id="kaki">
-      <option value="">-- Pilih --</option>
-      <option value="1">Buruk</option>
-      <option value="2">Cukup</option>
-      <option value="3">Baik</option>
-      <option value="4">Sangat Baik</option>
-      <option value="5">Istimewa</option>
-    </select>
+      <label for="kaki">Kondisi Kaki-Kaki</label>
+      <select id="kaki" required>
+        <option value="">-- Pilih Kondisi --</option>
+        <option value="5">Sangat Baik - Senyap dan stabil</option>
+        <option value="4">Baik - Normal, ada bunyi ringan</option>
+        <option value="3">Cukup - Ada bunyi dan goyangan</option>
+        <option value="2">Kurang - Perlu perbaikan shock</option>
+        <option value="1">Buruk - Goyang parah dan bocor</option>
+      </select>
 
-    <label for="km">Kilometer Kendaraan (ribu km):</label>
-    <input type="number" id="km" min="0">
+      <button type="submit">Hitung Appraisal</button>
+    </form>
 
-    <button onclick="calculateAppraisal()">Hitung Appraisal</button>
-
-    <div id="result" class="result"></div>
+    <div class="result" id="result"></div>
   </div>
 
   <script>
-    const basePrices = {
-      "Avanza": 180,
-      "Rush": 220,
-      "Innova": 300,
-      "Fortuner": 420,
-      "Calya": 140,
-      "Agya": 130,
-      "Veloz": 200,
-      "Yaris": 260,
-      "Sienta": 240
-    };
+    // Generate Tahun Otomatis
+    const yearSelect = document.getElementById("year");
+    const currentYear = new Date().getFullYear();
+    for (let i = 0; i <= 10; i++) {
+      const year = currentYear - i;
+      const option = document.createElement("option");
+      option.value = year;
+      option.textContent = year;
+      yearSelect.appendChild(option);
+    }
 
-    function calculateAppraisal() {
-      const model = document.getElementById('model').value;
-      const year = parseInt(document.getElementById('year').value);
-      const km = parseFloat(document.getElementById('km').value);
-      const eksterior = parseInt(document.getElementById('eksterior').value);
-      const interior = parseInt(document.getElementById('interior').value);
-      const mesin = parseInt(document.getElementById('mesin').value);
-      const ban = parseInt(document.getElementById('ban').value);
-      const kaki = parseInt(document.getElementById('kaki').value);
-      const type = document.getElementById('type').value;
-      const transmission = document.getElementById('transmission').value;
+    document.getElementById("appraisalForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-      if (!model || !year || isNaN(km) || !eksterior || !interior || !mesin || !ban || !kaki || !type || !transmission) {
-        alert("Mohon lengkapi semua kolom!");
+      const model = document.getElementById("model").value;
+      const type = document.getElementById("type").value;
+      const transmission = document.getElementById("transmission").value;
+      const year = parseInt(document.getElementById("year").value);
+      const km = parseInt(document.getElementById("km").value);
+      const eksterior = parseInt(document.getElementById("eksterior").value);
+      const interior = parseInt(document.getElementById("interior").value);
+      const mesin = parseInt(document.getElementById("mesin").value);
+      const ban = parseInt(document.getElementById("ban").value);
+      const kaki = parseInt(document.getElementById("kaki").value);
+
+      if (!model || !type || !transmission || isNaN(year) || isNaN(km) || isNaN(eksterior) || isNaN(interior) || isNaN(mesin) || isNaN(ban) || isNaN(kaki)) {
+        document.getElementById("result").textContent = "Harap lengkapi semua isian.";
         return;
       }
 
-      let price = basePrices[model] || 200;
-      const currentYear = new Date().getFullYear();
-      const age = currentYear - year;
+      // Estimasi harga pasar dasar
+      let basePrice = {
+        Avanza: 180000000,
+        Rush: 220000000,
+        Innova: 300000000,
+        Agya: 160000000,
+        Raize: 230000000,
+      }[model] || 200000000;
 
-      price -= age * 10; // depresiasi usia (10 juta per tahun)
-      price -= km * 0.5; // depresiasi km (500rb per 1.000 km)
+      // Penyesuaian tipe dan transmisi
+      if (type === "Q" || type === "GR") basePrice += 10000000;
+      if (transmission === "AT") basePrice += 7000000;
 
-      const conditionScore = (eksterior + interior + mesin + ban + kaki) / 5;
-      price *= (0.7 + (conditionScore / 10)); // pengaruh kondisi
+      // Penyesuaian berdasarkan tahun
+      const yearAdjustment = (currentYear - year) * 0.05;
+      basePrice *= (1 - yearAdjustment);
 
-      // Tambahan nilai berdasarkan tipe dan transmisi
-      if (type === "GR" || type === "TRD") price += 10;
-      if (transmission === "AT" || transmission === "CVT") price += 5;
+      // Penyesuaian berdasarkan kilometer
+      if (km > 100000) basePrice *= 0.85;
+      else if (km > 50000) basePrice *= 0.9;
+      else if (km > 20000) basePrice *= 0.95;
 
-      if (price < 0) price = 0;
+      // Skor kondisi
+      const totalScore = eksterior + interior + mesin + ban + kaki;
+      const conditionMultiplier = totalScore / 25; // Max score = 25
+      const finalPrice = Math.round(basePrice * conditionMultiplier);
 
-      document.getElementById('result').innerHTML = `<h3>Perkiraan Harga Appraisal:</h3><p>Rp ${Math.round(price)} juta</p>`;
-    }
+      document.getElementById("result").textContent = `Estimasi Harga Appraisal: Rp ${finalPrice.toLocaleString("id-ID")}`;
+    });
   </script>
 </body>
 </html>
